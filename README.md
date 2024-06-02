@@ -1,4 +1,4 @@
-# Password-Generator
+# Password Generator
 
 This Python script generates random passwords within specified length constraints using custom character sets.
 
