@@ -1,3 +1,5 @@
+# File: password_generator.py
+
 import itertools
 import string
 import os
@@ -5,6 +7,10 @@ import threading
 import queue
 import signal
 from tqdm import tqdm
+from colorama import Fore, Style, init
+
+# Initialize colorama
+init(autoreset=True)
 
 def generate_passwords(min_length, max_length, file_path, characters):
     def worker(password_queue, file_lock, progress_bar, file):
@@ -25,7 +31,7 @@ def generate_passwords(min_length, max_length, file_path, characters):
             thread_count = min(os.cpu_count() or 4, 10)  # Use available cores, max 10
             threads = []
 
-            with tqdm(total=total_combinations, desc="Generating passwords", unit="pass") as progress_bar:
+            with tqdm(total=total_combinations, desc=f"{Fore.GREEN}Generating passwords", unit="pass") as progress_bar:
                 for _ in range(thread_count):
                     t = threading.Thread(target=worker, args=(password_queue, file_lock, progress_bar, file))
                     t.daemon = True
@@ -38,7 +44,7 @@ def generate_passwords(min_length, max_length, file_path, characters):
                             password = ''.join(combination)
                             password_queue.put(password)
                 except KeyboardInterrupt:
-                    print("\nInterrupted by user. Stopping...")
+                    print(f"\n{Fore.RED}Interrupted by user. Stopping...")
                 finally:
                     for _ in threads:
                         password_queue.put(None)
@@ -48,51 +54,51 @@ def generate_passwords(min_length, max_length, file_path, characters):
                     for t in threads:
                         t.join()
 
-            print("\nPasswords have been generated and saved to:", file_path)
+            print(f"\n{Fore.BLUE}Passwords have been generated and saved to: {file_path}")
     
     except IOError:
-        print("Error: Cannot write to file at the specified path.")
+        print(f"{Fore.RED}Error: Cannot write to file at the specified path.")
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        print(f"{Fore.RED}Unexpected error: {e}")
 
 def get_integer_input(prompt, min_val, max_val):
     while True:
         try:
-            value = int(input(prompt))
+            value = int(input(f"{Fore.CYAN}{prompt}{Style.RESET_ALL}"))
             if min_val <= value <= max_val:
                 return value
             else:
-                print(f"Input must be between {min_val} and {max_val}. Try again.")
+                print(f"{Fore.YELLOW}Input must be between {min_val} and {max_val}. Try again.")
         except ValueError:
-            print("Invalid input. Please enter an integer.")
+            print(f"{Fore.RED}Invalid input. Please enter an integer.")
 
 def get_characters():
     default_characters = string.ascii_letters + string.digits + '@#%&*$'
-    use_default = input("Use default character set? (Y/N): ").strip().lower() == 'y'
+    use_default = input(f"{Fore.CYAN}Use default character set? (Y/N): {Style.RESET_ALL}").strip().lower() == 'y'
     if use_default:
         return default_characters
     else:
-        custom_set = input("Enter custom character set: ").strip()
+        custom_set = input(f"{Fore.CYAN}Enter custom character set: {Style.RESET_ALL}").strip()
         if not custom_set:
-            print("Error: Custom character set cannot be empty.")
+            print(f"{Fore.RED}Error: Custom character set cannot be empty.")
             return get_characters()
         return custom_set
 
 def signal_handler(signal_received, frame):
-    print("\nTermination signal received. Exiting gracefully...")
+    print(f"\n{Fore.RED}Termination signal received. Exiting gracefully...")
     os._exit(1)
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
 
+    print(f"{Fore.MAGENTA}Welcome to the Password Generator!{Style.RESET_ALL}")
     min_length = get_integer_input("Enter minimum password length: ", 1, 1000)
     max_length = get_integer_input("Enter maximum password length: ", min_length, 1000)
     
-    file_path = input("Enter the file path to save passwords (e.g., /home/bhanu/Desktop/password.txt): ").strip()
+    file_path = input(f"{Fore.CYAN}Enter the file path to save passwords (e.g., /home/user/passwords.txt): {Style.RESET_ALL}").strip()
     if not file_path:
-        print("Error: File path cannot be empty.")
+        print(f"{Fore.RED}Error: File path cannot be empty.")
     else:
         characters = get_characters()
-        print(f"\nGenerating passwords ({min_length}-{max_length} characters)...")
-        
+        print(f"\n{Fore.GREEN}Generating passwords ({min_length}-{max_length} characters)...{Style.RESET_ALL}")
         generate_passwords(min_length, max_length, file_path, characters)
