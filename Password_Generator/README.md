@@ -103,10 +103,6 @@ Generating passwords: 100%|█████████████████�
 2025-02-18 12:00:12,346 - INFO - Total passwords generated: 238,328
 ```
 
-## Contributing
-
-Contributions are welcome! Please fork this repository, create your feature branch, and submit a pull request. For major changes, please open an issue first to discuss your ideas.
-
 ## License
 
 This project is licensed under the MIT License.
