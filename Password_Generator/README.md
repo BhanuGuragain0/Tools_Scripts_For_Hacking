@@ -103,7 +103,8 @@ Generating passwords: 100%|█████████████████�
 2025-02-18 12:00:12,346 - INFO - Total passwords generated: 238,328
 ```
 
-## License
 
+## License
+```
 This project is licensed under the MIT License.
 ```
