@@ -1,6 +1,6 @@
 
 ```markdown
-# Advanced Password Generator
+# Advanced Password Generator For Rainbow Attack
 
 Advanced Password Generator is a Python‑based tool that efficiently generates all possible password combinations within a specified length range. Utilizing multiprocessing with a chunk‑based task partitioning approach, real‑time progress tracking via tqdm, robust logging, and graceful signal handling, this tool is designed for high‑performance, real‑world usage.
 
