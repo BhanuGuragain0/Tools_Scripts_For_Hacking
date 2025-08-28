@@ -1,4 +1,5 @@
 # 🔥 Advanced Password Generator By Shadow@Bhanu
+*Remember: With great power comes great responsibility. Use your skills to protect, not exploit.*
 
 This is a cutting-edge Python framework designed for **elite ethical hackers, penetration testers, and red team operators**. This tool combines multiple password generation techniques with comprehensive security analysis, delivering production-grade capabilities for advanced cybersecurity operations.
 
@@ -406,12 +407,3 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 This tool is designed for **authorized security testing, research, and educational purposes only**. Users are responsible for ensuring compliance with all applicable laws and regulations. The authors are not responsible for any misuse or damage caused by this tool.
 
 **Use responsibly. Test only systems you own or have explicit permission to test.**
-
----
-- **GitHub**: [Shadow Junior's Arsenal](https://github.com/shadowjunior)
-- **Discord**: shadowjunior#elite
-- **Email**: shadow@cyberops.ninja
-
----
-
-*Remember: With great power comes great responsibility. Use your skills to protect, not exploit.*
